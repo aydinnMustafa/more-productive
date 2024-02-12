@@ -2,81 +2,91 @@
 @section('title', "Home Page")
 @section('body')
 
-<div class="container-fluid">
-    <div class="card ms-auto me-auto text-center text-white bg-info-subtle mt-3" style="max-width: 32rem; height: 9rem;">
-        <img src="{{ asset('images/logo.png') }}" class="position-absolute" alt="Logo" style="width: 50px; height: 40px;" />
-        <div class="card-header text-center">Welcome, Mustafa</div>
-        <div class="card-body">
-            <p class="card-text">
-                “Even if I knew that tomorrow the world would go to pieces, I would still plant my apple tree.” <br />
-                - Martin Luther
-            </p>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-3">
+        <form action="{{ route('add-activity') }}" class="needs-validation" novalidate method="post">
+    @csrf
+    <div class="form-group">
+        <label for="name">What did you do today?</label>
+        <input type="text" class="form-control" id="name" name="name" required />
+        <div class="invalid-feedback">Must be at least 5 characters long.</div>
+    </div>
+
+    <div class="form-group d-flex">
+    <div class="me-2 flex-grow-1">
+        <label for="hour">Hours</label>
+        <input type="number" class="form-control" id="hour" name="hour" min="0" max="24" required />
+        <div class="invalid-feedback">Please enter a valid hour value (between 0 and 24).</div>
+    </div>
+
+    <div class="flex-grow-1">
+        <label for="minute">Minutes</label>
+        <input type="number" class="form-control" id="minute" name="minute" min="0" max="59" required />
+        <div class="invalid-feedback">Please enter a valid minute value (between 0 and 59).</div>
+    </div>
+    
+</div>
+
+    <div class="d-grid gap-2 col-12 mt-2">
+        <button type="submit" class="btn btn-primary btn-block">Add</button>
+    </div>
+    </div>
+        @if(session()->has('error'))
+         <div class="alert alert-danger">
+        {{ session()->get('error') }}
+        </div>
+        @endif
+</form>
+    
+        <div class="col-md-7 offset-md-1">
+            <div class="card text-white bg-info-subtle" style="max-width: 40rem; height: 9rem;">
+                <img src="{{ asset('images/logo.png') }}" class="position-absolute" alt="Logo" style="width: 50px; height: 40px;" />
+                <div class="card-header text-center">Welcome, Mustafa</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        “Even if I knew that tomorrow the world would go to pieces, I would still plant my applI would still plant my applI would still plant my apple tree.” <br />
+                        - Martin Luther
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <h3 class="ms-5 mt-4">YOUR DID TODAY</h3>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" style="max-width: 40rem;">
-                <div class="card text-white bg-success me-2" style="max-width: 18rem; height: 8rem;">
-                    <div class="card-header text-center">Instagram</div>
-                    <div class="card-body">
-                        <p class="card-text">I used 4 hours in today.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-success me-2" style="max-width: 18rem; height: 8rem;">
-                    <div class="card-header text-center">Instagram</div>
-                    <div class="card-body">
-                        <p class="card-text">I used 4 hours in today.</p>
-                    </div>
-                </div>
-                <div class="card text-white bg-success me-2" style="max-width: 18rem; height: 8rem;">
-                    <div class="card-header text-center">Instagram</div>
-                    <div class="card-body">
-                        <p class="card-text">I used 4 hours in today.</p>
-                    </div>
-                </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 mb-3 g-2" style="max-width: 35rem;">
 
-                <div class="card text-white bg-success me-2" style="max-width: 18rem; height: 8rem;">
-                    <div class="card-header text-center">Header</div>
+            @foreach($activities as $activity)
+                <div class="card text-white bg-success me-2" style="width:12rem; height: 10rem;">
+                    <div class="card-header text-center">
+                    @if($activity->minute == 0)
+                    {{ $activity->hour }} Hours
+                    @elseif($activity->hour == 0)
+                    {{ $activity->minute }} Minutes
+                    @else
+                    {{ $activity->hour }} Hours {{ $activity->minute }} Minutes
+                    @endif
+                    </div>
                     <div class="card-body">
-                        <p class="card-text">Some q.</p>
+                        <p class="card-text">{{ $activity->name }}</p>
                     </div>
                 </div>
+                @endforeach
+
             </div>
         </div>
         <div class="col-md-4">
             <h3 class="mt-4">YOUR WEEKLY PROGRESS</h3>
             <div class="card w-75">
-                <div class="card-body d-flex justify-content-center">
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" style="max-width: 45rem;">
-                        <div class="card text-white bg-success me-2" style="width: 10rem; height: 10rem;">
-                            <div class="card-header text-center">Instagram</div>
-                            <div class="card-body">
-                                <p class="card-text">I used 4 hours in today.</p>
-                            </div>
-                        </div>
+                <h4 class="text-center">Weekly work for your goal</h4>
+                <div class="progress progress-striped active mb-4">
+                    <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
+                </div>
 
-                        <div class="card text-white bg-success me-2" style="width: 10rem; height: 10rem;">
-                            <div class="card-header text-center">Instagram</div>
-                            <div class="card-body">
-                                <p class="card-text">I used 4 hours in today.</p>
-                            </div>
-                        </div>
-
-                        <div class="card text-white bg-success me-2" style="width: 10rem; height: 10rem;">
-                            <div class="card-header text-center">Instagram</div>
-                            <div class="card-body">
-                                <p class="card-text">I used 4 hours in today.</p>
-                            </div>
-                        </div>
-
-                        <div class="card text-white bg-success me-2" style="width: 10rem; height: 10rem;">
-                            <div class="card-header text-center">Header</div>
-                            <div class="card-body">
-                                <p class="card-text">Some q.</p>
-                            </div>
-                        </div>
-                    </div>
+                <h4 class="text-center">Complete tasks</h4>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" style="width: 0%;"></div>
                 </div>
             </div>
         </div>
@@ -137,4 +147,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    validateINPForPage("addActivity");
+
+    $(document).ready(function () {
+        var progress = 0;
+        var interval = setInterval(function () {
+            progress += 3;
+            $(".progress-bar")
+                .css("width", progress + "%")
+                .attr("aria-valuenow", progress);
+
+            if (progress >= 50) {
+                clearInterval(interval);
+            }
+        }, 150);
+    });
+</script>
+
 @endsection
