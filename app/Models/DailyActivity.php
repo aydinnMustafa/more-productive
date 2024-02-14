@@ -13,6 +13,7 @@ class DailyActivity extends Model
     
     
     protected $fillable = [
+        'user_id',
         'name',
         'hour',
         'minute'

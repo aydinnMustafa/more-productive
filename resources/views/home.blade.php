@@ -42,11 +42,10 @@
         <div class="col-md-7 offset-md-1">
             <div class="card text-white bg-info-subtle" style="max-width: 40rem; height: 9rem;">
                 <img src="{{ asset('images/logo.png') }}" class="position-absolute" alt="Logo" style="width: 50px; height: 40px;" />
-                <div class="card-header text-center">Welcome, Mustafa</div>
+                <div class="card-header text-center">Welcome, {{ Auth::check() ? Auth::user()->name : 'Guest' }}</div>
                 <div class="card-body">
                     <p class="card-text">
-                        “Even if I knew that tomorrow the world would go to pieces, I would still plant my applI would still plant my applI would still plant my apple tree.” <br />
-                        - Martin Luther
+                    {!! $quote !!}
                     </p>
                 </div>
             </div>
@@ -99,43 +98,19 @@
                             <div class="card px-3">
                                 <div class="card-body">
                                     <div class="list-wrapper">
-                                        <ul class="d-flex flex-column-reverse todo-list">
+                                        <ul class="d-flex flex-column todo-list">
                                             <li>
                                                 <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> For what reason would it be advisable. <i class="input-helper"></i></label>
+                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> For what reason would it be advisable.</label>
                                                 </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
                                             </li>
-                                            <li class="completed">
-                                                <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" checked="" /> For what reason would it be advisable for me to think. <i class="input-helper"></i></label>
-                                                </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
-                                            </li>
+
                                             <li>
                                                 <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> it be advisable for me to think about business content? <i class="input-helper"></i></label>
+                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> For what reason would it be advisable test tesesesese.</label>
                                                 </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
                                             </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> Print Statements all <i class="input-helper"></i></label>
-                                                </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
-                                            </li>
-                                            <li class="completed">
-                                                <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" checked="" /> Call Rampbo <i class="input-helper"></i></label>
-                                                </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                    <label class="form-check-label"> <input class="checkbox" type="checkbox" /> Print bills <i class="input-helper"></i></label>
-                                                </div>
-                                                <i class="remove mdi mdi-close-circle-outline"></i>
-                                            </li>
+                                      
                                         </ul>
                                     </div>
                                 </div>

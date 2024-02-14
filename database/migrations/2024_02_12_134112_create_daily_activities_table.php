@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('daily_activities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
             $table->unsignedInteger('hour'); // hours and minutes spent with activity
             $table->unsignedInteger('minute'); // hours and minutes spent with activity
